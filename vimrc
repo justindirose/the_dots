@@ -16,6 +16,8 @@ call minpac#add('alok/notational-fzf-vim')
 let mapleader = ' '
 nnoremap <SPACE> <Nop>
 
+inoremap jk <ESC>
+
 " vimrc edits
 nnoremap <Leader>ve :e $MYVIMRC<CR>
 nnoremap <Leader>vr :source $MYVIMRC<CR>
