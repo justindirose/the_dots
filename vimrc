@@ -11,6 +11,7 @@ call minpac#add('tpope/vim-fugitive') " git
 call minpac#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' })
 call minpac#add('junegunn/fzf.vim')
 call minpac#add('alok/notational-fzf-vim')
+call minpac#add('vimwiki/vimwiki')
 
 " Keymaps
 let mapleader = ' '
@@ -37,6 +38,7 @@ nnoremap <silent> <leader>nf :NV<CR>
 
 " Settings
 
+filetype plugin on
 syntax on
 set nocompatible
 set number
@@ -94,7 +96,11 @@ let g:prettier#config#config_precedence = 'prefer-file'
 let g:prettier#config#prose_wrap = 'preserve'
 
 " nv_fzf
-let g:nv_search_paths = []
+let g:nv_search_paths = ['~/Dropbox/notes','~/Dropbox/zettl']
+
+" vimwiki
+let g:vimwiki_list = [{'path': '~/Dropbox/notes', 'syntax': 'markdown', 'ext': '.md'},{'path': '~/Dropbox/zettl', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_global_ext = 0
 
 " autogroups
 " you keep this in a group so you can reload vimrc on save without bloating autocmds
