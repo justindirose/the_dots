@@ -9,9 +9,10 @@ call minpac#add('scrooloose/nerdtree') " file explorer
 call minpac#add('Xuyuanp/nerdtree-git-plugin')
 call minpac#add('tpope/vim-fugitive') " git
 call minpac#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' })
-call minpac#add('junegunn/fzf.vim')
-call minpac#add('alok/notational-fzf-vim')
-call minpac#add('vimwiki/vimwiki')
+call minpac#add('junegunn/fzf.vim') " fuzzzzzzy wuzzzzy search
+call minpac#add('alok/notational-fzf-vim') " searching notes dir
+call minpac#add('vimwiki/vimwiki') " building wikis
+call minpac#add('airblade/vim-gitgutter') " git status in file
 
 " Keymaps
 let mapleader = ' '
@@ -113,3 +114,20 @@ augroup vimrc
    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
+
+" from https://vimways.org/2019/personal-notetaking-in-vim/
+command! -nargs=* Zet call s:zettel(<f-args>)
+function! s:zettel(...)
+
+  " build the file name
+  let l:sep = ''
+  if len(a:000) > 0
+    let l:sep = '-'
+  endif
+  let l:fname = expand('~/Dropbox/zettl/') . strftime("%F-%H%M") . l:sep . join(a:000, '-') . '.md'
+
+  " edit the new file
+  exec "e " . l:fname
+
+  exec "\"=<strftime(\"%F-%H%M\") . l:sep . join(a:000, '-')C-M>p"
+endfunc
