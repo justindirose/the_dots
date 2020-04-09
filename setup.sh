@@ -7,6 +7,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 
 brew install ripgrep
 
-ln -s `pwd`/the_dots/vimrc ~/.vimrc
-rm -f `pwd`/.zshrc
-ln -s `pwd`/the_dots/zsh ~/.zshrc
+rm -f ~/.vimrc
+ln -s `pwd`/vimrc ~/.vimrc
+rm -f ~/.zshrc
+ln -s `pwd`/zsh ~/.zshrc
