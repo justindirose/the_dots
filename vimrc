@@ -4,6 +4,9 @@ call minpac#init()
 
 call minpac#add('morhetz/gruvbox') " colors
 call minpac#add('prettier/vim-prettier') " prettify JS
+call minpac#add('isRuslan/vim-es6') " es6 highlighting
+call minpac#add('vim-ruby/vim-ruby') " hruby
+call minpac#add('mustache/vim-mustache-handlebars') " handle barsss
 call minpac#add('dense-analysis/ale') " linting
 call minpac#add('scrooloose/nerdtree') " file explorer
 call minpac#add('Xuyuanp/nerdtree-git-plugin')
