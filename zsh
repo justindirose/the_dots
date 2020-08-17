@@ -1,13 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="$HOME/.local/bin:$HOME/.bin:$PATH"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/justindirose/.oh-my-zsh"
+export ZSH="/home/justindirose/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="avit"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -56,16 +57,12 @@ ZSH_THEME="spaceship"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-source $ZSH/oh-my-zsh.sh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  z
-)
+plugins=(git z)
 
 #. ~/z.sh
 
@@ -99,7 +96,6 @@ plugins=(
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #source $HOME/.zshenv
 #
-eval "$(rbenv init -)"
 export GPG_TTY=$(tty)
 
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
@@ -109,6 +105,13 @@ fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 ssh-add -l | grep "The agent has no identities" && ssh-add -t 24h ~/.ssh/id_rsa.discourse && ssh-add -t 24h ~/.ssh/id_rsa 
 
-export PATH=$HOME/bin:/usr/local/bin:$HOME/Development/ops/bin:$HOME/Library/Python/3.7/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+
+# BEGIN: __OPS_MARKER__
+. ~/.opsrc
+# END: __OPS_MARKER__
+
+setxkbmap -option caps:hyper
+
+source $ZSH/oh-my-zsh.sh

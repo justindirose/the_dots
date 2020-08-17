@@ -13,9 +13,8 @@ call minpac#add('Xuyuanp/nerdtree-git-plugin')
 call minpac#add('tpope/vim-fugitive') " git
 call minpac#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' })
 call minpac#add('junegunn/fzf.vim') " fuzzzzzzy wuzzzzy search
-call minpac#add('alok/notational-fzf-vim') " searching notes dir
-call minpac#add('vimwiki/vimwiki') " building wikis
 call minpac#add('airblade/vim-gitgutter') " git status in file
+call minpac#add('mrk21/yaml-vim') " yaml linting
 
 " Keymaps
 let mapleader = ' '
@@ -28,7 +27,7 @@ nnoremap <Leader>ve :e $MYVIMRC<CR>
 nnoremap <Leader>vr :source $MYVIMRC<CR>
 
 " open nerdtree
-nmap <leader>f :NERDTreeToggle<Enter>  
+nmap <leader>f :NERDTreeToggle<Enter>
 " open NT on file
 nnoremap <silent> <Leader>ff :NERDTreeFind<CR>
 
@@ -85,7 +84,6 @@ set background=dark
 colorscheme gruvbox
 
 " prettier
-let g:prettier#autoformat = 1
 let g:prettier#config#print_width = 80
 let g:prettier#config#tab_width = 2
 let g:prettier#config#use_tabs = 'false'
@@ -99,38 +97,27 @@ let g:prettier#config#parser = 'babylon'
 let g:prettier#config#config_precedence = 'prefer-file'
 let g:prettier#config#prose_wrap = 'preserve'
 
-" nv_fzf
-let g:nv_search_paths = ['~/Dropbox/notes','~/Dropbox/zettl']
 
-" vimwiki
-let g:vimwiki_list = [{'path': '~/Dropbox/notes', 'syntax': 'markdown', 'ext': '.md'},{'path': '~/Dropbox/zettl', 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_global_ext = 0
+" ale
+let g:ale_linters = {
+\ 'javascript': ['eslint'],
+\ 'ruby': ['rubocop']
+\ }
+let g:ale_linters_explicit = 1
+let g:ale_fixers = {
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\ 'javascript': ['prettier', 'eslint']
+\ }
+let g:ale_fix_on_save = 1
 
 " autogroups
 " you keep this in a group so you can reload vimrc on save without bloating autocmds
 augroup vimrc
    autocmd!
    " when you save a file in discourse run Prettier so you do not forget
-   autocmd BufWritePre *discourse/*.js,*discourse/*.es6,*discourse/*.scss,*discourse/*.css PrettierAsync
+   "autocmd BufWritePre *discourse/*.js,*discourse/*.es6,*discourse/*.scss,*discourse/*.css PrettierAsync
    " auto close tab if last window remaining in nerdtree
    autocmd StdinReadPre * let s:std_in=1
    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
-
-" from https://vimways.org/2019/personal-notetaking-in-vim/
-command! -nargs=* Zet call s:zettel(<f-args>)
-function! s:zettel(...)
-
-  " build the file name
-  let l:sep = ''
-  if len(a:000) > 0
-    let l:sep = '-'
-  endif
-  let l:fname = expand('~/Dropbox/zettl/') . strftime("%F-%H%M") . l:sep . join(a:000, '-') . '.md'
-
-  " edit the new file
-  exec "e " . l:fname
-
-  exec "\"=<strftime(\"%F-%H%M\") . l:sep . join(a:000, '-')C-M>p"
-endfunc
