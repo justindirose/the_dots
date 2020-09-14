@@ -15,6 +15,7 @@ call minpac#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' })
 call minpac#add('junegunn/fzf.vim') " fuzzzzzzy wuzzzzy search
 call minpac#add('airblade/vim-gitgutter') " git status in file
 call minpac#add('mrk21/yaml-vim') " yaml linting
+call minpac#add('jamessan/vim-gnupg') " gpg
 
 " Keymaps
 let mapleader = ' '
